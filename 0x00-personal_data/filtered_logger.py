@@ -6,7 +6,7 @@ import re
 import logging
 from typing import List
 import os
-import mysql.connector # type: ignore
+import mysql.connector
 
 PII_FIELDS = ("name", "email", "phone", "ssn", "password")
 
