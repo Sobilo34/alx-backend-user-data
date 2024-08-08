@@ -64,7 +64,7 @@ class BasicAuth(Auth):
             pass
 
         return None
-    
+
     def current_user(self, request=None) -> TypeVar('User'):
         """A method that returns the current user"""
         auth_header = self.authorization_header(request)
