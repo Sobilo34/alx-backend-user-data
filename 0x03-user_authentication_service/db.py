@@ -5,6 +5,8 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.session import Session
 from user import User
+from sqlalchemy.orm.exc import NoResultFound
+from sqlalchemy.exc import InvalidRequestError
 
 from user import Base
 
@@ -40,10 +42,20 @@ class DB:
         Returns:
             User: The user instance added to the database.
         """
-        user = User(email=email, hashed_password=hashed_password)
-        self._session.add(user)
+        new_user = User(email=email, hashed_password=hashed_password)
+        self._session.add(new_user)
         self._session.commit()
-        return user
+        return new_user
         
-    def find_user_by():
-        pass
+    def find_user_by(self, *args, **kwargs) -> User:
+        """
+        Find a user by any attribute
+        """
+        try:
+            return self._session.query(User).filter_by(**kwargs).first()
+        except NoResultFound:
+            return 
+        except InvalidRequestError:
+            return None
+        except Exception:
+            return None
