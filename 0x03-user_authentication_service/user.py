@@ -2,13 +2,16 @@
 """
 a SQLAlchemy model named User
 """
-from sqlalchemy import Column, Integer, String, VARCHAR
+from sqlalchemy import Column, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
 
 Base = declarative_base()
 
 
 class User(Base):
+    """
+    A class for User model
+    """
     __tablename__ = 'users'
 
     id = Column(Integer, primary_key=True)
