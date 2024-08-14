@@ -42,20 +42,16 @@ class DB:
         Returns:
             User: The user instance added to the database.
         """
-        new_user = User(email=email, hashed_password=hashed_password)
-        self._session.add(new_user)
+        user = User(email=email, hashed_password=hashed_password)
+        self._session.add(user)
         self._session.commit()
-        return new_user
+        return user
         
-    def find_user_by(self, *args, **kwargs) -> User:
+    def find_user_by(self, **kwargs) -> User:
         """
         Find a user by any attribute
         """
-        try:
-            return self._session.query(User).filter_by(**kwargs).first()
-        except NoResultFound:
-            return 
-        except InvalidRequestError:
-            return None
-        except Exception:
-            return None
+        user = self._session.query(User).filter_by(**kwargs).first()
+        if user is None:
+            raise NoResultFound()
+        return user
