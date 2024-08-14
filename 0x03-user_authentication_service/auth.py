@@ -1,12 +1,18 @@
 #!/usr/bin/env python3
 """
-Authentication module
+User Authentication Module
 """
 import bcrypt
 
+
 def _hash_password(password: str) -> bytes:
-    """
-    returned bytes is a salted hash of the input password
+    """Hash a password with a salt using bcrypt.
+
+    Args:
+        password (str): The password to hash.
+
+    Returns:
+        bytes: The salted hash of the password.
     """
     bytes = password.encode('utf-8')
     salt = bcrypt.gensalt()
