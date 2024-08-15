@@ -12,10 +12,10 @@ app = Flask(__name__)
 
 
 @app.route('/', methods=['GET'], strict_slashes=False)
-def my_form():
+def my_form() -> str:
     """A method that retuns the JSON response of a form
     """
-    return jsonify({"message": "Bienvenue"})
+    return jsonify(message="Bienvenue")
 
 
 @app.route('/users', methods=['POST'], strict_slashes=False)
