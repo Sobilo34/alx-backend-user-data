@@ -58,17 +58,10 @@ class DB:
         """
         Update a user
         """
-        user = self.find_user_by(id=user_id)
-
-        try:
-            user
-        except NoResultFound:
-            raise ValueError
-
+        user: User = self.find_user_by(id=user_id)
         for key, value in kwargs.items():
             if hasattr(user, key):
                 setattr(user, key, value)
             else:
                 raise ValueError
-
         self._session.commit()
