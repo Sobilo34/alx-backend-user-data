@@ -70,11 +70,16 @@ class Auth:
             bool: True if the login is valid, False otherwise.
         """
         try:
+            # Find the user by email in the database
             user = self._db.find_user_by(email=email)
-            return bcrypt.checkpw(password.encode('utf-8'),
-                                  user.hashed_password)
-        except Exception:
+        except NoResultFound:
+            # If user is not found, return False
             return False
+
+        # Get the hashed password of the user
+        user_pwd = user.hashed_password
+        # Check if the provided password matches the hashed password
+        return bcrypt.checkpw(password.encode("utf-8"), user_pwd)
 
     def create_session(self, email: str) -> str:
         """Creates a session for the user.
